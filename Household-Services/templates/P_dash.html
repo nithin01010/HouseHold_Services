@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Dashboard - Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Professional Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <a class="nav-link active" href="/P_DashBoard/{{P_id}}">Home</a>
+                    <a class="nav-link" href="/P_Search/{{P_id}}">Search</a>
+                    <a class="nav-link" href="/P_summary/{{P_id}}">Summary</a>
+                    <a class="nav-link" href="/P_Profile/{{P_id}}">Profile</a>
+                    <a class="nav-link" href="/login">Logout</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5>Today's Services</h5>
+            </div>
+            <div class="card-body">
+                {% if requests %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Phone</th>
+                            <th>Location</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in requests %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.customer.fullname}}</td>
+                            <td>{{i.customer.number}}</td>
+                            <td>{{i.customer.address}} ({{i.customer.pincode}})</td>
+                            <td>
+                                <a href="/P_Reject/{{P_id}}/{{i.id}}" class="btn btn-danger btn-sm">Reject</a>
+                                <a href="/P_Accept/{{P_id}}/{{i.id}}" class="btn btn-success btn-sm">Accept</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No Service Requests</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h5>Closed Services</h5>
+            </div>
+            <div class="card-body">
+                {% if closed %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Phone</th>
+                            <th>Location</th>
+                            <th>Status</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in closed %}
+                        <tr>
+                            <td>{{i.id}}</td>
+                            <td>{{i.customer.fullname}}</td>
+                            <td>{{i.customer.number}}</td>
+                            <td>{{i.customer.address}} ({{i.customer.pincode}})</td>
+                            <td>
+                            {%if i.status=="close it" %}
+                                Accepted
+                            {%else%}
+                                {{i.status}}
+                                {%endif %}
+                            </td>
+                            <td>{{i.rating}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No History</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleaning Service Packages</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="bg-primary text-white text-center py-3">
+        <h1>Welcome to Customer</h1>
+        <nav class="nav justify-content-center">
+            <a class="nav-link text-white" href="/C_DashBoard/{{C_id}}">Home</a>
+            <a class="nav-link text-white" href="/C_Search/{{C_id}}">Search</a>
+            <a class="nav-link text-white" href="/C_summary/{{C_id}}">Summary</a>
+            <a class="nav-link text-white" href="/login">Logout</a>
+        </nav>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Best {{cato}} Packages</h2>
+        {% if services %}
+            <form method="POST">
+                <table class="table table-striped">
+                    {% for service in services %}
+                    <tr>
+                        <td>
+                            {{ service.name }} | ${{service.price }}
+                            {% if service.description %}
+                            | {{ service.description }}
+                            {% endif %}
+                            | {{service.rating }}
+                        </td>
+                        <td>
+                            <button type="submit" name="id" value="{{ service.id }}" class="btn btn-primary">Book</button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </form>
+        {% else %}
+            <p class="text-warning">Sorry! Services are not available for {{cato}} at this time.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

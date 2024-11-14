@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Description Service</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <h1 class="navbar-brand mb-0">Customer details</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <a class="nav-link text-white" href="/DashBoard">Home</a>
+                <a class="nav-link text-white" href="/ad_Search">Search</a>
+                <a class="nav-link text-white" href="/ad_summary">Summary</a>
+                <a class="nav-link text-white" href="/login">Logout</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Description / Update Service</h2>
+        <form method="POST" >
+            <div class="form-group">
+                <label for="service-name">Service Name:</label>
+                <input type="text" class="form-control" name="name" value="{{service.name}}">
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <input class="form-control" name="description" rows="4" value="{{service.description}}" >
+            </div>
+            <div class="form-group">
+                <label for="base-price">Base Price:</label>
+                <input type="number" class="form-control" name="price" step="0.01" value="{{service.price}}">
+            </div>
+            <div class="d-flex justify-content-between mt-4">
+                <button type="button" ><a href="/delete_service/{{service.id}}" >Delete</a></button>
+                <button type="submit" ><a href="/delete_service/{{service.id}}" >Update</a></button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

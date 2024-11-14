@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-light p-3">
+        <h1 class="text-center">Welcome to Admin</h1>
+        <nav class="text-center">
+            <a href="/DashBoard" class="btn btn-link">Home</a>
+            <a href="/ad_Search" class="btn btn-link">Search</a>
+            <a href="/ad_summary" class="btn btn-link">Summary</a>
+            <a href="/login" class="btn btn-link">Logout</a>
+        </nav>
+    </header>
+
+    <section class="container mt-4">
+        <h2>Search Functionality</h2>
+        <div class="search-box mb-4">
+            <form  method="POST"  class="form-inline">
+                <label for="search" class="mr-2">Search by:</label>
+                <select id="search" name="category" class="form-control mr-2">
+                    <option value="service">Service Request</option>
+                    <option value="customers">Customers</option>
+                    <option value="professionals">Professionals</option>
+                </select>
+                <input type="text" name="query" placeholder="Search text" class="form-control mr-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+        {%if error %}
+        <div class="alert alert-danger text-center">{{ error }}</div>
+        {% endif %}
+        {%if results %}
+        <h2>{{category}}</h2>
+        <table class="table table-bordered">
+            {% if category == "service" %}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Service Name</th>
+                    <th>Customer Name</th>
+                    <th>Assigned Professional</th>
+                    <th> Price </th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in results %}
+                <tr>
+                    <td><a href="/check_Customer/{{i.id}}">{{i.id}}</a></td>
+                    <td>{{ i.service.name }}</td>
+                    <td>{{ i.customer.fullname }}</td>
+                    <td>{{ i.professional.fullname }}</td>
+                    <td>{{ i.service.price }}</td>
+                    <td>
+                        {% if i.status == "close it" %}
+                            Accepted
+                        {%else%}
+                        {{i.status}}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+            {% if category == "customers" %}      
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>address</th>
+                    <th pincode</th>
+                    <th>Phone number</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in results %}
+                <tr>
+                    <td><a href="/check_Customer/{{i.id}}">{{i.id}}</a></td>
+                    <td>{{ i.fullname }}</td>
+                    <td>{{ i.address }}</td>
+                    <td>{{ i.pincode }}</td>
+                    <td>{{ i.number }}</td>
+                    <td>{{ i.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+            {% if category == "professionals" %}     
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Service Name</th>
+                    <th>Experience</th>
+                    <th>address</th>
+                    <th >pincode</th>
+                    <th>Phone number</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in results %}
+                <tr>
+                    <td><a href="/check_Request/{{i.id}}">{{i.id}}</a></td>
+                    <td>{{ i.fullname }}</td>
+                    <td>{{ i.service.name }}</td>
+                    <td>{{ i.experience }}</td>
+                    <td>{{ i.address }}</td>
+                    <td>{{ i.pincode }}</td>
+                    <td>{{ i.number }}</td>
+                    <td>{{ i.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            {% endif %}
+        </table>
+        {% endif %}
+    </section>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Dashboard - Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-4">
+        <h1>Welcome to Professional</h1>
+        <nav>
+            <a class="text-white" href="/P_DashBoard/{{P_id}}">Home</a> |
+            <a class="text-white" href="/P_Search/{{P_id}}">Search</a> |
+            <a class="text-white" href="/P_summary/{{P_id}}">Summary</a> |
+            <a class="text-white" href="/login">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        <section class="search">
+            <h2>Search Functionality</h2>
+            <form method="POST" class="form-inline mb-4">
+                <label for="search-by" class="mr-2">Search by:</label>
+                <select id="search-by" name="category" class="form-control mr-2">
+                    <option value="location">Location</option>
+                    <option value="pincode">Pin Code</option>
+                </select>
+                <input type="text" placeholder="Enter search text" name="query" required class="form-control mr-2">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+
+            {% if new %}
+            {% else %}
+                {% if results %}
+                <h3>Search Results</h3>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer Name</th>
+                            <th>Contact Phone</th>
+                            <th>Location (with Pin Code)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in results %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ i.customer.fullname }}</td>
+                            <td>{{ i.customer.number }}</td>
+                            <td>{{ i.customer.address }}</td>
+                            <td>
+                                <a href="/P_Reject/{{ P_id }}/{{ i.id }}" class="btn btn-danger btn-sm">Reject</a> 
+                                <a href="/P_Accept/{{ P_id }}/{{ i.id }}" class="btn btn-success btn-sm">Accept</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <p class="no-services text-danger">Sorry! Services are not requested this time.</p>
+                {% endif %}
+            {% endif %}
+        </section>
+    </div>
+</body>
+</html>

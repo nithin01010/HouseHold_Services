@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Dashboard - Profile</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <h1 class="navbar-brand mb-0">Professional Details</h1>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <a class="nav-link text-white" href="/DashBoard">Home</a>
+                <a class="nav-link text-white" href="/ad_Search">Search</a>
+                <a class="nav-link text-white" href="/ad_summary">Summary</a>
+                <a class="nav-link text-white" href="/login">Logout</a>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Profile Details</h2>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{{professional.fullname}}" readonly >
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Service Name:</label>
+                            <input type="text" class="form-control" id="location" name="pincode" value="{{professional.service.name}}"readonly >
+                        </div>
+                        <div class="mb-3">
+                            <label for="experience" class="form-label">Experience (Years):</label>
+                            <input type="number" class="form-control" id="experience" name="experience" value="{{professional.experience}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone:</label>
+                            <input type="tel" class="form-control" id="phone" name="number" value="{{professional.number}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Location:</label>
+                            <input type="text" class="form-control" id="location" name="address" value="{{professional.address}}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="location" class="form-label">Pincode:</label>
+                            <input type="text" class="form-control" id="location" name="pincode" value="{{professional.pincode}}" readonly>
+                        </div>
+                        <div class="text-center">
+                            {% if professional.status == "Blocked" %}
+                            <button type="submit" ><a href="/unblock_professional/{{professional.id}}" class="btn btn-primary">UnBlock Profile</a></button>
+                            {%else%}
+                            <button type="submit" ><a href="/block_professional/{{professional.id}}" class="btn btn-primary">Block Profile</a></button>
+                            {%endif%}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

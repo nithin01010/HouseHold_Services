@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Customer Dashboard</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="/C_DashBoard/{{C_id}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/C_Search/{{C_id}}">Search</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/C_summary/{{C_id}}">Summary</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/login">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <section class="mb-5">
+            <h2>Looking For?</h2>
+            <div class="row g-3 mt-2">
+                {% for service in service1 %}
+                <div class="col-md-4">
+                    <div class="card h-100" style="cursor: pointer;" onclick="window.location.href='{{ url_for('Booking', C_id=C_id, cato=service) }}'">
+                        <div class="card-body">
+                            <h5 class="card-title">{{service}}</h5>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Service History</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Service Name</th>
+                            <th>Professional Name</th>
+                            <th>Phone No.</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in history %}
+                        <tr>
+                            <td>{{ i.id }}</td>
+                            <td>{{ i.service.name }}</td>
+                            <td>{{ i.professional.fullname }}</td>
+                            <td>{{ i.professional.number }}</td>
+                            {%if i.status == 'close it' %}
+                            <td><button class="btn btn-primary btn-sm" onclick="window.location.href='{{ url_for('service_remarks', C_id=C_id, request_id=i.id) }}'">{{ i.status }}</button></td>
+                            {% else %}
+                            <td>{{ i.status }}</td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

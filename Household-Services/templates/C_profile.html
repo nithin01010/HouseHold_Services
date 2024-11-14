@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard - Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <header class="bg-primary text-white text-center py-3">
+        <h1>Welcome to Customer</h1>
+        <nav class="nav justify-content-center">
+            <a class="nav-link text-white" href="/C_DashBoard/{{C_id}}">Home</a>
+            <a class="nav-link text-white" href="/C_Search/{{C_id}}">Search</a>
+            <a class="nav-link text-white" href="/C_summary/{{C_id}}">Summary</a>
+            <a class="nav-link text-white" href="/login">Logout</a>
+        </nav>
+    </header>
+
+    <section class="container mt-5">
+        <h2>Profile Details</h2>
+        <form method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="fullname" value="{{customer.fullname}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="number" value="{{customer.number}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="address" value="{{customer.address}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="pincode">Pincode:</label>
+                <input type="text" id="pincode" name="pincode" value="{{customer.pincode}}" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </div>
+        </form>
+    </section>
+</body>
+</html>
